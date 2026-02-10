@@ -15,7 +15,6 @@
             align-items: center;
             font-family: 'Poppins', sans-serif;
             overflow: hidden;
-            /* Prevents the whole page from bouncing on mobile */
             touch-action: none; 
         }
 
@@ -36,13 +35,6 @@
             box-shadow: 0 20px 40px rgba(255, 77, 109, 0.35);
             border: 2px solid #fff;
             z-index: 10;
-            animation: popIn 0.8s ease;
-            position: relative;
-        }
-
-        @keyframes popIn {
-            from { transform: scale(0.7); opacity: 0; }
-            to { transform: scale(1); opacity: 1; }
         }
 
         h1 {
@@ -85,10 +77,9 @@
             color: #b00020;
             box-shadow: 0 5px 15px rgba(255, 154, 162, 0.4);
             position: absolute;
-            /* Smooth bouncy transition for the dodge */
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            /* Cubic-bezier makes it feel alive and smooth */
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             z-index: 12;
-            /* Important for mobile: stays in place until TAP */
         }
 
         .floating-heart {
@@ -137,13 +128,18 @@
 <div class="signature">Created by Bernard</div>
 
 <script>
-    const heartBox = document.getElementById("heartBox");
     const noBtn = document.getElementById("noBtn");
     const music = document.getElementById("valentineMusic");
 
+    // IMPORTANT: Fix the starting position so it slides instead of jumping
+    window.onload = () => {
+        const rect = noBtn.getBoundingClientRect();
+        noBtn.style.left = rect.left + 'px';
+        noBtn.style.top = rect.top + 'px';
+    };
+
     function dodge() {
-        // Safe area: 80px from edges so it doesn't hide under phone notches
-        const padding = 80; 
+        const padding = 50; 
         const maxX = window.innerWidth - noBtn.offsetWidth - padding;
         const maxY = window.innerHeight - noBtn.offsetHeight - padding;
 
@@ -161,14 +157,14 @@
         heart.style.left = Math.random() * 100 + "vw";
         heart.style.fontSize = (Math.random() * 25 + 15) + "px";
         heart.style.animationDuration = (Math.random() * 3 + 4) + "s";
-        heartBox.appendChild(heart);
+        document.getElementById("heartBox").appendChild(heart);
         setTimeout(() => heart.remove(), 7000);
     }
 
     setInterval(createHeart, 400);
 
     function celebrate() {
-        music.play().catch(() => console.log("Music play started"));
+        music.play().catch(() => {});
         noBtn.style.display = "none";
         document.getElementById("mainCard").innerHTML = `
             <h1 style="font-size:3rem;">Yay! 🥰💖</h1>
@@ -180,6 +176,5 @@
         }
     }
 </script>
-
 </body>
 </html>
