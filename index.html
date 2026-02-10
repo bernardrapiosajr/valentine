@@ -15,7 +15,8 @@
             align-items: center;
             font-family: 'Poppins', sans-serif;
             overflow: hidden;
-            touch-action: manipulation;
+            /* Prevents the whole page from bouncing on mobile */
+            touch-action: none; 
         }
 
         #heartBox {
@@ -31,11 +32,12 @@
             border-radius: 30px;
             text-align: center;
             width: 85%;
-            max-width: 360px;
+            max-width: 340px;
             box-shadow: 0 20px 40px rgba(255, 77, 109, 0.35);
             border: 2px solid #fff;
             z-index: 10;
             animation: popIn 0.8s ease;
+            position: relative;
         }
 
         @keyframes popIn {
@@ -54,6 +56,7 @@
             display: flex;
             justify-content: center;
             gap: 15px;
+            min-height: 60px;
         }
 
         button {
@@ -82,10 +85,10 @@
             color: #b00020;
             box-shadow: 0 5px 15px rgba(255, 154, 162, 0.4);
             position: absolute;
-            /* SMOOTH DODGE EFFECT BELOW */
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            touch-action: none;
+            /* Smooth bouncy transition for the dodge */
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             z-index: 12;
+            /* Important for mobile: stays in place until TAP */
         }
 
         .floating-heart {
@@ -127,9 +130,7 @@
     <h1>Will you be my Valentine? ❤️</h1>
     <div class="btn-wrapper">
         <button id="yesBtn" onclick="celebrate()">Yes</button>
-        <button id="noBtn" onmouseover="dodge()" ontouchstart="dodge(event)">
-            No
-        </button>
+        <button id="noBtn" onclick="dodge()">No</button>
     </div>
 </div>
 
@@ -140,10 +141,9 @@
     const noBtn = document.getElementById("noBtn");
     const music = document.getElementById("valentineMusic");
 
-    function dodge(e) {
-        if (e) e.preventDefault(); // Stop mobile from clicking accidentally
-        
-        const padding = 60; // Keep it away from edges
+    function dodge() {
+        // Safe area: 80px from edges so it doesn't hide under phone notches
+        const padding = 80; 
         const maxX = window.innerWidth - noBtn.offsetWidth - padding;
         const maxY = window.innerHeight - noBtn.offsetHeight - padding;
 
@@ -168,7 +168,7 @@
     setInterval(createHeart, 400);
 
     function celebrate() {
-        music.play();
+        music.play().catch(() => console.log("Music play started"));
         noBtn.style.display = "none";
         document.getElementById("mainCard").innerHTML = `
             <h1 style="font-size:3rem;">Yay! 🥰💖</h1>
