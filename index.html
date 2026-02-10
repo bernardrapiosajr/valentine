@@ -50,6 +50,7 @@
             align-items: center;
             gap: 15px;
             min-height: 60px;
+            /* This ensures they stay in a line on all screens */
         }
 
         button {
@@ -77,8 +78,10 @@
             background: #ff9aa2;
             color: #b00020;
             box-shadow: 0 5px 15px rgba(255, 154, 162, 0.4);
+            /* Transition makes the slide smooth */
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             z-index: 12;
+            position: relative; /* Start as relative so it follows the line */
         }
 
         .floating-heart {
@@ -131,9 +134,10 @@
     const music = document.getElementById("valentineMusic");
 
     function dodge() {
-        // Switch to absolute only when they interact
-        if (noBtn.style.position !== 'absolute') {
-            noBtn.style.position = 'absolute';
+        // IMPORTANT: Switching to absolute ONLY when the dodge happens
+        // This keeps the buttons on the same line on page load!
+        if (noBtn.style.position !== 'fixed') {
+            noBtn.style.position = 'fixed';
         }
 
         const padding = 60; 
@@ -166,7 +170,7 @@
         document.getElementById("mainCard").innerHTML = `
             <h1 style="font-size:3rem;">Yay! 🥰💖</h1>
             <p style="font-weight:600;color:#444;">You made my heart so happy!</p>
-            <p style="font-size:1.1rem;color:#ff4d6d;">I love you! 💕</p>
+            <p style="font-size:1.1rem;color:#ff4d6d;">Happy valentines! 💕</p>
         `;
         for (let i = 0; i < 50; i++) {
             setTimeout(createHeart, i * 50);
