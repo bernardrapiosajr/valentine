@@ -1,21 +1,21 @@
 # 💖 Interactive Valentine Card (Mobile Optimized)
 
-A fun, interactive Valentine's card for mobile and web. It features a "No" button that smoothly slides away only when the user tries to click it.
+A fun, interactive Valentine's card for mobile and web. It features a "No" button that perfectly aligns with the "Yes" button initially, but "breaks free" and dodges the user as soon as they try to click it.
 
 ## 🚀 Live Link
 [👉 Click here to view my Valentine Card](https://bernardrapiosajr.github.io/valentine/)
 
 ## ✨ Key Features
-* **Smooth Slide Trap:** Unlike other versions, the "No" button doesn't jump instantly. It uses a smooth CSS transition to slide away when tapped.
-* **Click-Triggered Only:** The button stays still until it is actually clicked/tapped, making it feel like a real trap.
-* **Romantic Music:** Background music starts automatically as soon as "Yes" is clicked.
-* **Mobile Ready:** Uses `window.onload` logic to ensure the button doesn't fly off-screen on different phone sizes.
+* **Perfect Alignment:** The "No" and "Yes" buttons stay on the same line until the prank begins.
+* **The Dodge Trap:** The "No" button uses a smooth `cubic-bezier` transition to slide away when clicked or hovered, making it impossible to catch.
+* **Romantic Atmosphere:** Includes floating heart animations and background music that triggers upon saying "Yes."
+* **Mobile Ready:** Optimized touch-action settings to ensure the button doesn't fly off-screen or cause zooming issues on mobile devices.
 
 ## 🛠️ How it was fixed for Phone
-If you are building this, here are the fixes I used for mobile:
-1.  **Initial Position Lock:** Used `getBoundingClientRect()` on load to prevent the button from "teleporting."
-2.  **Cubic-Bezier Timing:** Added a bouncy slide effect for a more "alive" feel.
-3.  **Touch Handling:** Optimized for mobile tapping by removing hover triggers.
+If you are building this, here are the core fixes used for this version:
+1. **Dynamic Positioning:** The "No" button starts in the normal document flow (relative) to stay next to "Yes," and only switches to `absolute` positioning the moment the `dodge()` function is triggered.
+2. **Bounds Detection:** Uses `window.innerWidth` and `window.innerHeight` with padding to ensure the button stays within the visible screen.
+3. **Cubic-Bezier Timing:** Added a bouncy slide effect (`cubic-bezier(0.175, 0.885, 0.32, 1.275)`) to make the movement feel organic.
 
 ## 👤 Credits
-Created by **Bernard**
+Created with ❤️ by **Bernard**
