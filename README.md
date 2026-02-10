@@ -1,21 +1,20 @@
 # 💖 Interactive Valentine Card (Mobile Optimized)
 
-A fun, interactive Valentine's card for mobile and web. It features a "No" button that perfectly aligns with the "Yes" button initially, then dodges the user when they try to click it.
+A fun, interactive Valentine's card for mobile and web. It features a "No" button that stays perfectly in line with the "Yes" button until the user attempts to tap it—at which point it begins dodging!
 
 ## 🚀 Live Link
 [👉 Click here to view my Valentine Card](https://bernardrapiosajr.github.io/valentine/)
 
 ## ✨ Key Features
-* **Perfect Inline Alignment:** Fixed the issue where buttons didn't stay on the same line on mobile devices.
-* **The Dodge Trap:** The "No" button starts in the natural layout and switches to `fixed` positioning only when interacted with.
-* **Valentine Message:** A sweet "Happy valentines!" message appears after clicking "Yes."
-* **Mobile Ready:** Uses `touch-action: none` to prevent accidental zooming while trying to catch the button.
+* **Perfect Inline Alignment:** Buttons are aligned horizontally on all screen sizes using Flexbox.
+* **Instant Mobile Dodge:** Added `ontouchstart` support so the button escapes the moment a finger touches it on a phone.
+* **Smooth Transitions:** Uses CSS transitions to make the "No" button glide away rather than teleporting.
+* **Sweet Message:** Displays "Happy valentines!" with a heart explosion when "Yes" is clicked.
 
 ## 🛠️ How it was fixed for Phone
-If you are building this, here are the mobile-specific fixes:
-1. **Flexbox Layout:** Buttons are wrapped in a flex container without absolute positioning at the start to ensure they stay side-by-side on all screen widths.
-2. **Fixed Switch:** Changed logic to trigger `position: fixed` only inside the JavaScript function. This prevents the button from "jumping" during the initial page load.
-3. **Viewport Padding:** Added math to ensure the button never dodges off the edge of small phone screens.
+1. **Touch-First Events:** Replaced standard `onclick` logic with `ontouchstart` to ensure mobile devices respond instantly before the tap is even finished.
+2. **Fixed Positioning Switch:** The button starts as `relative` (staying in line) and instantly switches to `fixed` the moment it needs to dodge.
+3. **Safe-Area Math:** Used `Math.max` and updated padding to ensure the button never dodges off the top or left of the phone screen.
 
 ## 👤 Credits
 Created with ❤️ by **Bernard**
