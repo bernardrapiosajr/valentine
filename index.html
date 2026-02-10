@@ -50,7 +50,6 @@
             align-items: center;
             gap: 15px;
             min-height: 60px;
-            /* This ensures they stay in a line on all screens */
         }
 
         button {
@@ -65,6 +64,7 @@
             cursor: pointer;
             min-width: 100px;
             user-select: none;
+            touch-action: manipulation;
         }
 
         #yesBtn {
@@ -78,10 +78,9 @@
             background: #ff9aa2;
             color: #b00020;
             box-shadow: 0 5px 15px rgba(255, 154, 162, 0.4);
-            /* Transition makes the slide smooth */
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: all 0.3s ease;
             z-index: 12;
-            position: relative; /* Start as relative so it follows the line */
+            position: relative; 
         }
 
         .floating-heart {
@@ -123,7 +122,7 @@
     <h1>Will you be my Valentine? ❤️</h1>
     <div class="btn-wrapper">
         <button id="yesBtn" onclick="celebrate()">Yes</button>
-        <button id="noBtn" onmouseover="dodge()" onclick="dodge()">No</button>
+        <button id="noBtn" onmouseover="dodge()" onclick="dodge()" ontouchstart="dodge()">No</button>
     </div>
 </div>
 
@@ -134,21 +133,26 @@
     const music = document.getElementById("valentineMusic");
 
     function dodge() {
-        // IMPORTANT: Switching to absolute ONLY when the dodge happens
-        // This keeps the buttons on the same line on page load!
+        // Switch to fixed immediately on first interaction
         if (noBtn.style.position !== 'fixed') {
             noBtn.style.position = 'fixed';
         }
 
-        const padding = 60; 
-        const maxX = window.innerWidth - noBtn.offsetWidth - padding;
-        const maxY = window.innerHeight - noBtn.offsetHeight - padding;
+        // Get button dimensions
+        const btnWidth = noBtn.offsetWidth;
+        const btnHeight = noBtn.offsetHeight;
 
-        const randomX = Math.floor(Math.random() * maxX) + (padding/2);
-        const randomY = Math.floor(Math.random() * maxY) + (padding/2);
+        // Calculate safe zones (staying inside the screen)
+        const padding = 20;
+        const maxX = window.innerWidth - btnWidth - padding;
+        const maxY = window.innerHeight - btnHeight - padding;
 
-        noBtn.style.left = randomX + "px";
-        noBtn.style.top = randomY + "px";
+        // Generate random coordinates
+        const randomX = Math.max(padding, Math.floor(Math.random() * maxX));
+        const randomY = Math.max(padding, Math.floor(Math.random() * maxY));
+
+        noBtn.style.left = `${randomX}px`;
+        noBtn.style.top = `${randomY}px`;
     }
 
     function createHeart() {
