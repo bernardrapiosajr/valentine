@@ -47,6 +47,7 @@
         .btn-wrapper {
             display: flex;
             justify-content: center;
+            align-items: center;
             gap: 15px;
             min-height: 60px;
         }
@@ -76,9 +77,7 @@
             background: #ff9aa2;
             color: #b00020;
             box-shadow: 0 5px 15px rgba(255, 154, 162, 0.4);
-            position: absolute;
-            /* Cubic-bezier makes it feel alive and smooth */
-            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             z-index: 12;
         }
 
@@ -121,7 +120,7 @@
     <h1>Will you be my Valentine? ❤️</h1>
     <div class="btn-wrapper">
         <button id="yesBtn" onclick="celebrate()">Yes</button>
-        <button id="noBtn" onclick="dodge()">No</button>
+        <button id="noBtn" onmouseover="dodge()" onclick="dodge()">No</button>
     </div>
 </div>
 
@@ -131,20 +130,18 @@
     const noBtn = document.getElementById("noBtn");
     const music = document.getElementById("valentineMusic");
 
-    // IMPORTANT: Fix the starting position so it slides instead of jumping
-    window.onload = () => {
-        const rect = noBtn.getBoundingClientRect();
-        noBtn.style.left = rect.left + 'px';
-        noBtn.style.top = rect.top + 'px';
-    };
-
     function dodge() {
-        const padding = 50; 
+        // Switch to absolute only when they interact
+        if (noBtn.style.position !== 'absolute') {
+            noBtn.style.position = 'absolute';
+        }
+
+        const padding = 60; 
         const maxX = window.innerWidth - noBtn.offsetWidth - padding;
         const maxY = window.innerHeight - noBtn.offsetHeight - padding;
 
-        const randomX = Math.floor(Math.random() * (maxX - padding)) + padding;
-        const randomY = Math.floor(Math.random() * (maxY - padding)) + padding;
+        const randomX = Math.floor(Math.random() * maxX) + (padding/2);
+        const randomY = Math.floor(Math.random() * maxY) + (padding/2);
 
         noBtn.style.left = randomX + "px";
         noBtn.style.top = randomY + "px";
